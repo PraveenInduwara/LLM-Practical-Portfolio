@@ -10,7 +10,7 @@ Use Hugging Face Transformers and TRL to adapt a small instruction-tuned causal 
 - **Environment:** Google Colab with a GPU runtime recommended
 - **Libraries:** `transformers`, `datasets`, `peft`, `trl`, `accelerate`, and `bitsandbytes`
 - **Notebook:** [fine_tune_computer_shop_lora.ipynb](notebooks/fine_tune_computer_shop_lora.ipynb)
-- **Models:** Qwen/Qwen2.5-0.5B-Instruct when the detected CUDA GPU has at least 8 GiB VRAM; otherwise HuggingFaceTB/SmolLM2-360M-Instruct. It enables NF4 QLoRA only when CUDA compute capability is at least 6.0 (the bitsandbytes NF4 minimum); otherwise it uses standard LoRA, with CPU training clearly marked as slow.
+- **Models:** Qwen/Qwen2.5-0.5B-Instruct when the detected CUDA GPU has at least 8 GiB VRAM; otherwise HuggingFaceTB/SmolLM2-360M-Instruct. It enables NF4 QLoRA only when CUDA compute capability is at least 6.0 (the bitsandbytes NF4 minimum); otherwise it uses standard LoRA, with CPU training clearly marked as slow. For mixed precision, it uses bfloat16 only on compute capability 8.0 or higher and float16 on older CUDA GPUs.
 
 ## Tasks and implementation
 
