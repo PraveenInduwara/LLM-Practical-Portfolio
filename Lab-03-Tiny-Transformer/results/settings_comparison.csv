@@ -1,0 +1,4 @@
+setting,parameters,validation_loss,perplexity
+"2 layers, 4 heads, 8 epochs",108736,2.3911799669265745,10.926379105485873
+"1 layer, 2 heads, 8 epochs",58752,2.3821253418922423,10.827891397222588
+
