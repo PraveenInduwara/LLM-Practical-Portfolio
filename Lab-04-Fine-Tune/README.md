@@ -16,13 +16,28 @@ Use Hugging Face Transformers and TRL to adapt a small instruction-tuned causal 
 
 The notebook installs the required libraries, reports the CUDA GPU model and VRAM when available, and records whether it uses 4-bit NF4 QLoRA or standard LoRA. It creates 36 original domain question-and-answer examples, reserving eight examples for evaluation. It applies each model's chat template, configures LoRA, and fine-tunes with TRL's `SFTTrainer`.
 
-The notebook evaluates loss and perplexity, compares original and fine-tuned answers to the same held-out questions, then asks both models additional questions absent from the dataset. It saves the adapter, tokenizer, and a JSON run record in the runtime. In Colab, download those artifacts before ending the session; the runtime's temporary files are not automatically committed to this repository.
+The notebook evaluates loss and perplexity, compares original and fine-tuned answers on held-out and new questions, saves the answer comparisons, and packages the adapter, tokenizer, run record, and comparisons into a downloadable ZIP.
 
 ## Results and evidence
 
-**Run status:** Notebook prepared; it has not yet been run in a Colab runtime. No GPU model, VRAM, training metrics, perplexity, or generated answers are reported here until the notebook is executed.
+**Run status:** Completed in Google Colab.
 
-After running, add the Colab GPU name and VRAM, selected model, training/evaluation loss, perplexity, and a few representative before/after answers here. Put screenshots in `screenshots/` and explain each one here.
+| Measurement | Result |
+| --- | --- |
+| GPU | Tesla T4, 14.56 GiB VRAM |
+| Base model | `Qwen/Qwen2.5-0.5B-Instruct` |
+| Fine-tuning method | LoRA with 4-bit NF4 QLoRA |
+| Compute dtype | float16 |
+| Dataset split | 28 training pairs; 8 held-out evaluation pairs |
+| Trainable parameters | 4,399,104 of 498,431,872 (0.8826%) |
+| Evaluation loss | 1.5966 |
+| Evaluation perplexity | 4.9364 |
+| Mean token accuracy | 0.6591 |
+| Evaluation entropy | 1.6985 |
+
+The Colab run compared the base and fine-tuned models on the same eight held-out questions and three additional questions absent from the dataset. The supplied ZIP contains the trained adapter, adapter configuration, tokenizer files, and run record. The notebook now also saves the comparison table to `heldout_comparison.csv` and the extra prompt answers to `unseen_prompt_comparison.json` inside the downloadable adapter bundle.
+
+The dataset is small and hand-written for demonstrating the workflow; the metrics and examples are not evidence of production-level support quality.
 
 ## Observations and learning outcomes
 
@@ -32,7 +47,7 @@ The notebook is designed to demonstrate how LoRA reduces the number of trainable
 
 1. Open the notebook in Google Colab.
 2. Select Runtime > Change runtime type > T4 GPU (or another available GPU), then run cells in order.
-3. Keep the printed hardware details, metrics, comparison table, and sample answers for this README.
+3. The final cell displays the metrics and answer comparisons, then downloads an adapter ZIP with the CSV and JSON comparison records.
 4. Download the saved adapter/run record before the Colab session ends. Do not commit a full base model checkpoint.
 
 ## References
