@@ -6,50 +6,39 @@ Build and train a small Transformer language model on TinyStories to learn chara
 
 ## Dataset
 
-The notebook loads the [roneneldan/TinyStories dataset on Hugging Face](https://huggingface.co/datasets/roneneldan/TinyStories) with streaming enabled and uses a 300-story subset. It does not download or commit the full dataset. The 300 sampled stories had a median length of 802.5 characters (range: 387–1,225). The subset is split by story into 240 training stories and 60 validation stories. TinyStories is provided under [CDLA-Sharing-1.0](https://cdla.dev/sharing-1-0/); the executed notebook retains dataset attribution and displays only a few sample stories.
+The notebook streams 20,000 shuffled records from the [roneneldan/TinyStories dataset on Hugging Face](https://huggingface.co/datasets/roneneldan/TinyStories). It splits these by story into 18,000 training stories and 2,000 validation stories and does not commit the full corpus. TinyStories is provided under [CDLA-Sharing-1.0](https://cdla.dev/sharing-1-0/).
 
 ## Implementation
 
-The complete, executed practical is in [tiny_transformer_from_scratch.ipynb](notebooks/tiny_transformer_from_scratch.ipynb). It includes:
+The practical is in [tiny_transformer_from_scratch.ipynb](notebooks/tiny_transformer_from_scratch.ipynb). It covers data exploration, character-level tokenization, shifted input and target sequences, causal multi-head self-attention, embeddings, feed-forward layers, residual connections, LayerNorm, cross-entropy, AdamW, validation monitoring, perplexity, sampling, settings comparison, and checkpoint saving/reloading.
 
-1. Loading and inspecting several stories, their text lengths, and structure.
-2. Character-level tokenization and shifted input/target sequences for next-character prediction.
-3. A causal Transformer with token and positional embeddings, masked multi-head self-attention, feed-forward layers, residual connections, LayerNorm, and dropout.
-4. Parameter initialization, cross-entropy loss, AdamW optimization, backpropagation, and gradient clipping.
-5. Training and validation loss logging, a loss curve, validation loss and perplexity evaluation.
-6. Prompt-based story generation, a model-setting comparison, and checkpoint saving/reloading.
-
-The baseline uses a 64-character context, 64-dimensional embeddings, 4 attention heads, 2 Transformer layers, batch size 32, and 8 epochs of 25 updates. Character vocabulary size was 71. The settings comparison keeps training duration fixed at 8 epochs and changes to 2 heads and 1 layer.
+The main configuration uses a 128-character context, 128-dimensional embeddings, 4 heads, 4 Transformer layers, batch size 32, and 5,000 optimizer updates. The smaller comparison uses 2 layers and 4 heads for 1,500 updates.
 
 ## Results
 
-| Configuration | Parameters | Validation loss | Perplexity |
+| Configuration | Parameters | Validation loss | Character perplexity |
 |---|---:|---:|---:|
-| 2 layers, 4 heads, 8 epochs | 108,736 | 2.391 | 10.93 |
-| 1 layer, 2 heads, 8 epochs | 58,752 | 2.382 | 10.83 |
+| 4 layers, 4 heads, 5,000 steps | 821,888 | 1.119 | 3.06 |
+| 2 layers, 4 heads, 1,500 steps | 245,280 | 1.727 | 5.62 |
 
-The smaller configuration used about half as many parameters and had a similar validation loss on this subset. Perplexity is calculated as the exponential of cross-entropy loss. Generated text is still rough and only partly readable after this short training run; these scores and samples demonstrate the workflow, not a production-quality story model.
+The 5,000-step model's loss decreased through training. Its generated samples contain recognizable story elements and simple event sequences, but still have spelling and grammar errors and sometimes lose coherence. This is a small character-level model trained from scratch, so the outputs are promising for the practical but are not consistently polished stories. See [generated samples](results/generated_stories.md).
 
 ## Results and Evidence
 
 - [Training and validation loss curve](results/training_loss.svg)
-- [Loss history by epoch](results/training_loss.csv)
+- [Loss history](results/training_loss.csv)
+- [Combined training history](results/all_training_loss.csv)
 - [Settings comparison](results/settings_comparison.csv)
 - [Generated story samples](results/generated_stories.md)
-- [Saved model checkpoint](results/tiny_transformer.pt)
 - [Model configuration](results/tiny_transformer_config.json)
+- [Saved model checkpoint](results/tiny_transformer.pt)
 
-The checkpoint includes model parameters, architecture configuration, and the character vocabulary. The notebook reloads it and generates another sample to demonstrate future use.
-
-## Performance Mechanisms
-
-The implementation uses a causal mask to prevent future-token leakage, residual connections and pre-LayerNorm for stable gradient flow, dropout and AdamW weight decay for regularization, gradient clipping to limit unstable updates, and mini-batches with AdamW for efficient optimization. Held-out validation loss and perplexity are monitored to compare generalization across configurations.
+The Colab run artifacts were produced with a T4 GPU. The checkpoint stores the model state, configuration, character vocabulary, and random seed.
 
 ## Learning Outcomes
 
-This practical shows how character streams become next-token training examples and how masked self-attention, position information, and feed-forward layers combine to predict the next character. It also demonstrates how to monitor validation loss, interpret perplexity, compare model capacity, generate from a prompt, and save a model for reuse.
+This practical shows how a text stream becomes next-character training examples and how masked self-attention, position information, and feed-forward layers combine to predict the next character. It also demonstrates validation monitoring, perplexity, model-size comparisons, prompt-based generation, and saving a model for reuse.
 
 ## Running the Notebook
 
-Install PyTorch, Hugging Face Datasets, NumPy, Pandas, and Matplotlib, then run the notebook cells in order. It streams 300 examples from Hugging Face by default; no full dataset download is needed.
-
+Open the notebook in Google Colab, select **Runtime > Change runtime type > T4 GPU**, then choose **Runtime > Restart session** and **Runtime > Run all**. It streams 20,000 records and runs the main model for 5,000 updates plus a smaller comparison run.
