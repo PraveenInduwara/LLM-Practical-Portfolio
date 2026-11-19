@@ -1,11 +1,16 @@
 {
-  "vocab_size": 71,
-  "block_size": 64,
-  "n_embd": 64,
+  "vocab_size": 95,
+  "block_size": 128,
+  "n_embd": 128,
   "n_head": 4,
-  "n_layer": 2,
+  "n_layer": 4,
   "dropout": 0.1,
   "seed": 42,
-  "sample_size": 300,
-  "tokenization": "character-level"
+  "sample_size": 20000,
+  "train_stories": 18000,
+  "validation_stories": 2000,
+  "training_steps": 5000,
+  "tokenization": "character-level",
+  "validation_loss": 1.1189154231548308,
+  "character_perplexity": 3.061531935343404
 }
