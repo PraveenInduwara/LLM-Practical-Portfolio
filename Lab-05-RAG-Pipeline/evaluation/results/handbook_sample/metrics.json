@@ -1,0 +1,78 @@
+{
+  "run_time": "2026-11-21 02:50:49 Sri Lanka Standard Time",
+  "corpus_pdf_count": 1,
+  "nonempty_pages": 50,
+  "evaluation_question_count": 8,
+  "ollama_chat_model": "llama3.2:3b",
+  "ollama_embedding_model": "qwen3-embedding:0.6b",
+  "model_runtime_config": {
+    "context_length": 2048,
+    "max_new_tokens": 256,
+    "embedding_keep_alive": 0,
+    "chat_keep_alive": 0
+  },
+  "retrieval_only": false,
+  "strategies": {
+    "fixed": {
+      "queries": 8,
+      "k": 5,
+      "recall_at_k": 0.9375,
+      "mrr": 1.0,
+      "mean_retrieval_latency_ms": 2136.562125000637,
+      "mean_answer_latency_ms": 46658.89862499898,
+      "mean_end_to_end_latency_ms": 48795.46074999962,
+      "mean_required_fact_coverage": 0.6416666666666666,
+      "chunk_count": 131,
+      "human_answer_review": {
+        "reviewed_answers": 8,
+        "correct": 5,
+        "partial": 3,
+        "incorrect": 0,
+        "strict_accuracy": 0.625,
+        "acceptable_including_partial": 1.0
+      },
+      "inline_citation_rate": 0.375
+    },
+    "sections": {
+      "queries": 8,
+      "k": 5,
+      "recall_at_k": 0.9375,
+      "mrr": 1.0,
+      "mean_retrieval_latency_ms": 2922.660200012615,
+      "mean_answer_latency_ms": 34951.376537486794,
+      "mean_end_to_end_latency_ms": 37874.03673749941,
+      "mean_required_fact_coverage": 0.34375,
+      "chunk_count": 167,
+      "human_answer_review": {
+        "reviewed_answers": 8,
+        "correct": 4,
+        "partial": 2,
+        "incorrect": 2,
+        "strict_accuracy": 0.5,
+        "acceptable_including_partial": 0.75
+      },
+      "inline_citation_rate": 0.5
+    },
+    "parent_child": {
+      "queries": 8,
+      "k": 5,
+      "recall_at_k": 0.9375,
+      "mrr": 1.0,
+      "mean_retrieval_latency_ms": 2456.4353875175584,
+      "mean_answer_latency_ms": 40331.80508749501,
+      "mean_end_to_end_latency_ms": 42788.24047501257,
+      "mean_required_fact_coverage": 0.6625,
+      "chunk_count": 302,
+      "human_answer_review": {
+        "reviewed_answers": 8,
+        "correct": 7,
+        "partial": 1,
+        "incorrect": 0,
+        "strict_accuracy": 0.875,
+        "acceptable_including_partial": 1.0
+      },
+      "inline_citation_rate": 0.5
+    }
+  },
+  "correctness_note": "All generated answers in this run were manually checked against the reference answers and cited/retrieved evidence pages. Strict accuracy counts fully correct answers only; partial answers are separate. Required-fact coverage is an automated lexical proxy, not correctness. Inline citation rate counts answer text containing an [S#] marker; the UI separately shows retrieved evidence."
+}

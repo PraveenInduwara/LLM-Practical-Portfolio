@@ -1,0 +1,107 @@
+{
+  "review_basis": "Manual comparison of each generated answer with the UGC handbook reference answer and the retrieved page evidence.",
+  "labels": {
+    "fixed": {
+      "ugc-01": [
+        "partial",
+        "Gives the 40% and 55% allocation but omits the remaining 5% disadvantaged-district category."
+      ],
+      "ugc-02": [
+        "correct",
+        "Correctly lists raw marks, mean performance, and standard deviation."
+      ],
+      "ugc-03": [
+        "partial",
+        "Includes applicant performance and available places but omits course demand; district population is also mentioned."
+      ],
+      "ugc-04": [
+        "correct",
+        "Correctly applies the most-days rule and the at-least-one-year condition."
+      ],
+      "ugc-05": [
+        "partial",
+        "Covers online registration and deadline but omits the Rs. 50 fee."
+      ],
+      "ugc-06": [
+        "correct",
+        "Correctly says to apply to the institution when applications are invited."
+      ],
+      "ugc-07": [
+        "correct",
+        "Correctly identifies more than three attempts as disqualifying."
+      ],
+      "ugc-08": [
+        "correct",
+        "Lists all six Arts-course exceptions."
+      ]
+    },
+    "sections": {
+      "ugc-01": [
+        "partial",
+        "Identifies 40% merit and 60% district allocation but does not distinguish 55% district quota from the 5% disadvantaged-district allocation."
+      ],
+      "ugc-02": [
+        "incorrect",
+        "Abstains although the retrieved page contains all three Z-score components."
+      ],
+      "ugc-03": [
+        "correct",
+        "Covers performance, demand, university, and available seats."
+      ],
+      "ugc-04": [
+        "correct",
+        "Correctly applies the most-days rule and the at-least-one-year condition."
+      ],
+      "ugc-05": [
+        "partial",
+        "Covers online registration and deadline but omits the Rs. 50 fee."
+      ],
+      "ugc-06": [
+        "correct",
+        "Correctly directs applicants to the institution when applications are invited."
+      ],
+      "ugc-07": [
+        "correct",
+        "Correctly identifies more than three attempts as disqualifying."
+      ],
+      "ugc-08": [
+        "incorrect",
+        "Abstains although the retrieved pages contain the full list of Arts-course exceptions."
+      ]
+    },
+    "parent_child": {
+      "ugc-01": [
+        "correct",
+        "Accurately explains all three allocation percentages and the disadvantaged-district rule."
+      ],
+      "ugc-02": [
+        "correct",
+        "Correctly lists all three Z-score components."
+      ],
+      "ugc-03": [
+        "partial",
+        "Includes performance, available places, and course demand but omits the university and the fact that cut-offs vary by year."
+      ],
+      "ugc-04": [
+        "correct",
+        "Correctly applies the most-days rule and the at-least-one-year condition."
+      ],
+      "ugc-05": [
+        "correct",
+        "Covers the Rs. 50 fee, online registration, deadline, and valid registration date."
+      ],
+      "ugc-06": [
+        "correct",
+        "Correctly says to apply to the institution when applications are invited."
+      ],
+      "ugc-07": [
+        "correct",
+        "Correctly identifies more than three attempts as disqualifying."
+      ],
+      "ugc-08": [
+        "correct",
+        "Lists all six Arts-course exceptions."
+      ]
+    }
+  }
+}

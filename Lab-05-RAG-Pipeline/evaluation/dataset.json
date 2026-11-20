@@ -1,0 +1,157 @@
+[
+  {
+    "id": "lab5-01",
+    "question": "What limitations of the existing university RAG implementation does the group task identify?",
+    "reference_answer": "The existing system uses fixed-size text chunking, dense vector retrieval, and top-k similarity search. These can struggle with complex queries, long documents, exact academic terminology, and information spread across multiple sources.",
+    "relevant_pages": [
+      5
+    ],
+    "required_facts": [
+      "fixed-size",
+      "dense vector",
+      "top-k",
+      "long documents",
+      "multiple"
+    ],
+    "source": "Lab sheet 5.pdf"
+  },
+  {
+    "id": "lab5-02",
+    "question": "What does Group 2 need to compare for the context-aware RAG project?",
+    "reference_answer": "Group 2 compares fixed-size chunking, section-based chunking, and parent-child retrieval, then investigates which approach works best for long academic handbooks.",
+    "relevant_pages": [
+      6
+    ],
+    "required_facts": [
+      "fixed-size",
+      "section-based",
+      "parent-child",
+      "long academic handbooks"
+    ],
+    "source": "Lab sheet 5.pdf"
+  },
+  {
+    "id": "lab5-03",
+    "question": "What deliverables are required for the advanced RAG group project?",
+    "reference_answer": "The deliverables are a working enhanced RAG application, a proposed architecture diagram, source code and setup instructions, an evaluation dataset with questions/reference answers/supporting documents, experimental baseline-versus-proposed results, a technical report, and a live demonstration.",
+    "relevant_pages": [
+      5
+    ],
+    "required_facts": [
+      "working",
+      "architecture",
+      "source code",
+      "evaluation dataset",
+      "experimental",
+      "technical report",
+      "live demonstration"
+    ],
+    "source": "Lab sheet 5.pdf"
+  },
+  {
+    "id": "lab5-04",
+    "question": "What is the main purpose of the Lab 5 group activity?",
+    "reference_answer": "Investigate, design, implement, and evaluate an advanced RAG architecture that improves at least one limitation of the existing university RAG system.",
+    "relevant_pages": [
+      5
+    ],
+    "required_facts": [
+      "design",
+      "implement",
+      "evaluate",
+      "improves",
+      "limitation"
+    ],
+    "source": "Lab sheet 5.pdf"
+  },
+  {
+    "id": "lab5-05",
+    "question": "Which local Ollama chat and embedding models are shown in the setup instructions?",
+    "reference_answer": "The setup pulls llama3.2:3b for chat and qwen3-embedding:0.6b for embeddings.",
+    "relevant_pages": [
+      2
+    ],
+    "required_facts": [
+      "llama3.2:3b",
+      "qwen3-embedding:0.6b"
+    ],
+    "source": "Lab sheet 5.pdf"
+  },
+  {
+    "id": "lab5-06",
+    "question": "What should the improved chatbot do with PDFs?",
+    "reference_answer": "It should read multiple PDFs, answer using their content, and allow users to upload their own PDFs when needed.",
+    "relevant_pages": [
+      4
+    ],
+    "required_facts": [
+      "multiple PDFs",
+      "upload",
+      "answers"
+    ],
+    "source": "Lab sheet 5.pdf"
+  },
+  {
+    "id": "lab5-07",
+    "question": "What metrics does Group 1 compare against the basic RAG system?",
+    "reference_answer": "Group 1 compares Recall@5, mean reciprocal rank (MRR), answer correctness, and latency.",
+    "relevant_pages": [
+      6
+    ],
+    "required_facts": [
+      "Recall@5",
+      "MRR",
+      "answer correctness",
+      "latency"
+    ],
+    "source": "Lab sheet 5.pdf"
+  },
+  {
+    "id": "lab5-08",
+    "question": "What experiment does Group 3 propose?",
+    "reference_answer": "Group 3 develops a retrieval-quality checker and retry mechanism, then investigates unsupported-answer reduction and abstention accuracy.",
+    "relevant_pages": [
+      6
+    ],
+    "required_facts": [
+      "retrieval-quality checker",
+      "retry",
+      "unsupported",
+      "abstention accuracy"
+    ],
+    "source": "Lab sheet 5.pdf"
+  },
+  {
+    "id": "lab5-09",
+    "question": "What is Group 4's knowledge-graph task?",
+    "reference_answer": "Group 4 extracts entities such as programmes, modules, prerequisites, and departments, builds a knowledge graph, and evaluates multi-hop academic questions.",
+    "relevant_pages": [
+      6
+    ],
+    "required_facts": [
+      "programmes",
+      "modules",
+      "prerequisites",
+      "knowledge graph",
+      "multi-hop"
+    ],
+    "source": "Lab sheet 5.pdf"
+  },
+  {
+    "id": "lab5-10",
+    "question": "What should the technical report and evaluation demonstrate?",
+    "reference_answer": "The report should explain methodology, findings, and limitations; the evaluation should compare the baseline and proposed RAG approaches using supporting documents and reference answers.",
+    "relevant_pages": [
+      5
+    ],
+    "required_facts": [
+      "methodology",
+      "findings",
+      "limitations",
+      "baseline",
+      "proposed",
+      "reference answers"
+    ],
+    "source": "Lab sheet 5.pdf"
+  }
+]
