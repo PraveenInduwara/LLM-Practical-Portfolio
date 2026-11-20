@@ -1,59 +1,40 @@
-# Lab 04: Fine-Tuning an Instruction Model
+# Lab 04: Fine-Tuning with LoRA / QLoRA
 
 ## Objective
 
-Use Hugging Face Transformers and TRL to adapt a small instruction-tuned causal language model to computer-shop support questions. Train only LoRA adapter parameters, use 4-bit QLoRA when a CUDA GPU is available, compare the original and adapted model on the same unseen questions, and save the adapter for later use.
+Fine-tune a small instruction-tuned causal language model for computer-shop support using PEFT LoRA, TRL supervised fine-tuning, and 4-bit NF4 QLoRA on a compatible GPU. Compare the original and fine-tuned models on identical held-out and unseen questions.
 
-## Practical information
+## Implementation
 
-- **Domain:** Computer shop support
-- **Environment:** Google Colab with a GPU runtime recommended
-- **Libraries:** `transformers`, `datasets`, `peft`, `trl`, `accelerate`, and `bitsandbytes`
-- **Notebook:** [fine_tune_computer_shop_lora.ipynb](notebooks/fine_tune_computer_shop_lora.ipynb)
-- **Models:** Qwen/Qwen2.5-0.5B-Instruct when the detected CUDA GPU has at least 8 GiB VRAM; otherwise HuggingFaceTB/SmolLM2-360M-Instruct. It enables NF4 QLoRA only when CUDA compute capability is at least 6.0 (the bitsandbytes NF4 minimum); otherwise it uses standard LoRA, with CPU training clearly marked as slow. For mixed precision, it uses bfloat16 only on compute capability 8.0 or higher and float16 on older CUDA GPUs.
+Run [fine_tune_computer_shop_lora.ipynb](notebooks/fine_tune_computer_shop_lora.ipynb) in Google Colab with a GPU runtime. It installs Transformers, Datasets, PEFT, TRL, Accelerate, bitsandbytes, and Gradio; records GPU model and memory; selects Qwen2.5-0.5B-Instruct or the smaller SmolLM2-360M-Instruct based on available memory; and configures 4-bit NF4 QLoRA with PEFT and TRL SFTTrainer.
 
-## Tasks and implementation
+The included run used a **Tesla T4 (14.56 GiB, compute capability 7.5)**, **Qwen/Qwen2.5-0.5B-Instruct**, and **4-bit NF4 QLoRA**. A GPU helps by accelerating the parallel matrix operations and providing high-bandwidth memory used in model training.
 
-The notebook installs the required libraries, reports the CUDA GPU model and VRAM when available, and records whether it uses 4-bit NF4 QLoRA or standard LoRA. It creates 36 original domain question-and-answer examples, reserving eight examples for evaluation. It applies each model's chat template, configures LoRA, and fine-tunes with TRL's `SFTTrainer`.
+The notebook creates 36 computer-shop Q&A pairs, with 28 training examples and 8 held-out examples. It trains on prompt/completion columns with completion-only loss, evaluates the fine-tuned model, compares base and fine-tuned answers on the same 8 held-out questions and 3 additional unseen questions, saves/reloads the adapter, and launches a Gradio chatbot using the fine-tuned model.
 
-The notebook evaluates loss and perplexity, compares original and fine-tuned answers on held-out and new questions, saves the answer comparisons, and packages the adapter, tokenizer, run record, and comparisons into a downloadable ZIP.
+## Results
 
-## Results and evidence
+The supplied run record reports completion-only evaluation loss **2.9040**, mean token accuracy **0.3750**, and perplexity **18.25** (calculated as exp(eval_loss)). The training log from the Colab run shows training loss declining from 2.476 to 2.352 and validation loss from 3.021 to 2.904 over three epochs. These are language-model token prediction metrics; they do not establish response correctness.
 
-**Run status:** Completed in Google Colab.
+The comparison files show **mixed answer quality**. The fine-tuned model gives a more appropriate answer to the deleted-file recovery question, but also produces incorrect or unsafe advice on some held-out questions (including cleaning desktop dust and shutting down nightly), and its unseen no-picture troubleshooting answer is not relevant. The current results therefore document a completed fine-tuning exercise, not a reliable support assistant. Review each answer before using it as guidance.
 
-| Measurement | Result |
-| --- | --- |
-| GPU | Tesla T4, 14.56 GiB VRAM |
-| Base model | `Qwen/Qwen2.5-0.5B-Instruct` |
-| Fine-tuning method | LoRA with 4-bit NF4 QLoRA |
-| Compute dtype | float16 |
-| Dataset split | 28 training pairs; 8 held-out evaluation pairs |
-| Trainable parameters | 4,399,104 of 498,431,872 (0.8826%) |
-| Evaluation loss | 1.5966 |
-| Evaluation perplexity | 4.9364 |
-| Mean token accuracy | 0.6591 |
-| Evaluation entropy | 1.6985 |
+## Results and saved adapter
 
-The Colab run compared the base and fine-tuned models on the same eight held-out questions and three additional questions absent from the dataset. The supplied ZIP contains the trained adapter, adapter configuration, tokenizer files, and run record. The notebook now also saves the comparison table to `heldout_comparison.csv` and the extra prompt answers to `unseen_prompt_comparison.json` inside the downloadable adapter bundle.
+- [Run record](results/fine_tuning_run_record.json)
+- [Held-out comparison (8 questions)](results/heldout_comparison.csv)
+- [Unseen-question comparison (3 questions)](results/unseen_prompt_comparison.json)
+- [Saved PEFT adapter and tokenizer](results/adapter/)
 
-The dataset is small and hand-written for demonstrating the workflow; the metrics and examples are not evidence of production-level support quality.
+The model base weights are not included; load the named base model before loading the adapter. The archive supplied by Colab did not include a full per-step training history, so this README records only the epoch values shown in the run output.
 
-## Observations and learning outcomes
+## Chatbot
 
-The notebook is designed to demonstrate how LoRA reduces the number of trainable parameters, how 4-bit quantization can lower GPU memory use, and how held-out questions help compare the base and adapted model. The small dataset is a workflow demonstration; it is not enough to establish reliable real-world support quality.
+After the evaluation/export cell completes, run the final **Ask the fine-tuned model in a chat window** cell. It starts a Gradio chatbot with the fine-tuned model and prints a temporary public share link. Anyone with the link can access it while the Colab runtime is active. The chatbot can produce incorrect answers; it is a demonstration and should not be used to make repair decisions.
 
-## Run instructions
+## Run steps
 
-1. Open the notebook in Google Colab.
-2. Select Runtime > Change runtime type > T4 GPU (or another available GPU), then run cells in order.
-3. The final cell displays the metrics and answer comparisons, then downloads an adapter ZIP with the CSV and JSON comparison records.
-4. Download the saved adapter/run record before the Colab session ends. Do not commit a full base model checkpoint.
+1. Open the notebook in Colab, select **Runtime > Change runtime type > T4 GPU**, then use **Runtime > Disconnect and delete runtime** before a clean run to clear stale CPU-only bitsandbytes libraries.
+2. Reconnect to the T4 GPU and run every cell in order. Check that the GPU and NF4 CUDA preflight are detected before model download.
+3. Review the held-out/unseen comparisons and run the chatbot cell. The current run artifacts from the supplied Colab ZIP are stored under results/. If you rerun Colab, download the new results ZIP and replace these checked-in artifacts after reviewing them.
 
-## References
-
-- [TRL SFTTrainer documentation](https://huggingface.co/docs/trl/sft_trainer)
-- [TRL PEFT and QLoRA integration](https://huggingface.co/docs/trl/peft_integration)
-- [bitsandbytes installation and hardware support](https://huggingface.co/docs/bitsandbytes/installation)
-- [Qwen2.5-0.5B-Instruct model page](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct)
-- [SmolLM2-360M-Instruct model page](https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct)
+The small hand-written dataset is for demonstrating the fine-tuning workflow and is too small to establish general support quality.

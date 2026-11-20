@@ -1,0 +1,22 @@
+{
+  "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
+  "gpu": "Tesla T4",
+  "gpu_memory_gib": 14.56,
+  "gpu_compute_capability": [
+    7,
+    5
+  ],
+  "quantization": "4-bit NF4 QLoRA",
+  "compute_dtype": "torch.float16",
+  "training_examples": 28,
+  "heldout_examples": 8,
+  "additional_unseen_questions": 3,
+  "evaluation_metrics": {
+    "eval_loss": 2.9040350914001465,
+    "eval_entropy": 2.8417734503746033,
+    "eval_mean_token_accuracy": 0.3750096932053566,
+    "eval_num_tokens": 5046.0
+  },
+  "perplexity": 18.24762786171138,
+  "evaluation_loss_scope": "completion tokens only"
+}

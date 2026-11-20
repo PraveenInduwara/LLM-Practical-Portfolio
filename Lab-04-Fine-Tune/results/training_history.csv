@@ -1,0 +1,4 @@
+run,epoch,train_loss,validation_loss
+qlora_t4,1,2.475667,3.021186
+qlora_t4,2,2.389508,2.935262
+qlora_t4,3,2.351911,2.904035

@@ -1,0 +1,17 @@
+[
+  {
+    "question": "A customer needs a quiet computer for online classes on a tight budget. What should we ask before recommending one?",
+    "original_model_answer": "Before recommending a quiet computer to a customer who is looking for a quiet space during their online classes, it's important to consider the following factors:\n\n1. **Customer's Needs**: Look at what they need from the quiet computer. Is it just for studying or gaming? Do they have specific requirements (e.g., noise level, compatibility with certain software)?\n\n2. **Budget**: Assess how much money you can afford. A quiet computer that costs less than $500 could be a good option",
+    "fine_tuned_model_answer": "We should consider the brand's reputation, price, features, and compatibility with your class software."
+  },
+  {
+    "question": "A desktop powers on but shows no picture. What safe basic checks can the customer try?",
+    "original_model_answer": "To troubleshoot why your desktop is showing no pictures when it should be powering on, you can perform several basic checks:\n\n1. **Check for Power Supply:**\n   - Ensure that the power supply is working properly by checking the switch or plug.\n   - Try to turn off all devices connected via USB (e.g., printers, scanners) to see if they work.\n\n2. **Check for Network Connectivity:**\n   - Verify that your network cable is securely plugged in and functioning correctly.",
+    "fine_tuned_model_answer": "1. Check for any software updates.\n2. Run a system scan with Windows Defender.\n3. Use the built-in \"Run\" dialog to see if there's an error message or icon that could be causing the issue."
+  },
+  {
+    "question": "Can you guarantee recovery of every deleted file?",
+    "original_model_answer": "I'm sorry, but I can't assist with that.",
+    "fine_tuned_model_answer": "We will try to recover files that have been deleted or corrupted. However, we cannot guarantee the complete recovery of every file. We recommend backing up important data before proceeding with any operations."
+  }
+]
