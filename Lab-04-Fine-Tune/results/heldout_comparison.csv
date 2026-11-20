@@ -1,0 +1,43 @@
+held_out_question,reference_answer,original_model_answer,fine_tuned_model_answer
+Why is my computer slow?,"Common causes include too many startup apps, low storage, limited memory, malware, or aging hardware. A diagnostic can identify the cause.","There could be several reasons why your computer is slowing down, including outdated software, excessive file size, or hardware issues. To troubleshoot, try the following steps:
+
+1. Update your operating system: Ensure that you have the latest version of Windows or macOS installed.
+2. Remove unused programs: Disable unnecessary applications to free up disk space.
+3. Optimize your settings: Adjust display settings, network settings, and other options for better performance.
+4. Use a cleaner desktop: Remove unnecessary files and","We recommend you check your system settings, update drivers, run a virus scan, and optimize your storage space."
+Can you clean dust from a desktop?,Yes. We can clean internal dust safely and check that the fans are working properly.,"Yes, I can help with that! Please tell me the location of the dust accumulation on your desktop so I can provide guidance on how to clean it effectively.","Yes, but it may be best to use a vacuum cleaner with a soft brush attachment or a microfiber cloth."
+What is a CPU?,The CPU is the processor that executes instructions and coordinates many computer tasks.,"A CPU (Central Processing Unit) is the main processing unit in a computer system that performs all of the operations required to run software applications and manage data within the computer's memory. It receives instructions from the operating system or application programs and executes them by fetching data from memory and performing calculations on it. The CPU also manages the storage space for data and program code, as well as managing interrupts when necessary.",The central processing unit (CPU) is the main processor of a computer system that performs all the necessary calculations to run software applications.
+Should I shut down my computer every night?,Either shutdown or sleep is fine for most users. Restarting occasionally also helps apply updates.,"No, you should not shut down your computer every night. This is unnecessary and could lead to data loss or system instability. Instead, consider setting up a routine that includes turning off the computer when it's time for bed, such as 9 PM, and then restarting it at 6 AM the next morning. This will ensure that your computer remains in a safe state until you wake up in the morning.","No, you should keep your computer running to ensure it is always ready for use when you return in the morning."
+Can I add Wi-Fi to a desktop?,Usually. A compatible Wi-Fi card or USB adapter can add wireless networking.,"Yes, you can add Wi-Fi to a desktop. To do this, follow these steps:
+
+1. Open the device's settings menu.
+2. Navigate to ""Network & Internet"" or similar options.
+3. Look for an option related to ""Wi-Fi"" or ""Wireless"".
+4. Click on it to open the configuration page.
+5. Add your network credentials (username, password) if needed.
+6. Save the changes.
+
+If you're using Windows 10, you might","Yes, but you'll need to connect your device to the network first."
+What information do you need to recommend a PC?,"Share your budget, main applications, preferred screen size, and any portability or gaming needs.","To recommend a PC, you'll want to consider the following key factors:
+
+1. **Operating System**: The operating system (Windows 7 or 8, macOS Mojave, etc.) is essential for running your software.
+
+2. **Processor**: A high-performance processor like an Intel Core i5-9300 or AMD Ryzen 5-4600X will provide better performance than a less powerful one.
+
+3. **Memory (RAM)**: At least 8GB of","We'll consider the following: processor type, memory size, storage capacity, operating system, graphics card, sound quality, display resolution, battery life, and compatibility with other hardware."
+Do you repair printers?,We can advise on common setup issues and let you know whether printer repairs are available at the shop.,"Yes, I can assist with repairing various types of printers including inkjet, laser, and toner-based devices. Please let me know if there's a specific printer or model you'd like assistance with.",Yes. We can check for damage or replace the ink cartridges if necessary.
+How do I safely transport a desktop PC?,"Shut it down, unplug cables, secure loose accessories, and protect the case from impact and moisture.","Transporting a desktop PC is safe if you follow these steps:
+
+1. **Secure the PC**: Ensure that all data on the PC is backed up to an external drive or cloud storage service.
+
+2. **Use a Secure Network Connection**: Use a secure network connection (e.g., Wi-Fi) when connecting your PC to other networks.
+
+3. **Secure the Network Interface Card (NIC)**: Connect the NIC of your PC to a secure network interface card (NIC) such as a 6","Transporting a desktop PC is safe if you follow these steps:
+
+1. Ensure the device is in good condition.
+2. Use a secure case or stand.
+3. Avoid moving it on wheels.
+4. Keep it away from water sources.
+5. Do not expose it to extreme temperatures.
+
+This will help prevent damage and ensure your PC remains operational."
