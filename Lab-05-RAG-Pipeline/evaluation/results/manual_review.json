@@ -1,0 +1,131 @@
+{
+  "review_basis": "Manual comparison of each generated answer with the evaluation reference answer and the cited/retrieved pages in Lab sheet 5.pdf.",
+  "labels": {
+    "fixed": {
+      "lab5-01": {
+        "human_correctness": "partial",
+        "review_notes": "Names chunking, dense retrieval, and top-k, but omits the limitations those methods cause."
+      },
+      "lab5-02": {
+        "human_correctness": "partial",
+        "review_notes": "Lists the three chunking strategies but omits the long academic handbook investigation."
+      },
+      "lab5-03": {
+        "human_correctness": "correct",
+        "review_notes": "Covers all seven listed deliverables."
+      },
+      "lab5-04": {
+        "human_correctness": "partial",
+        "review_notes": "States the general aim but omits improving at least one existing system limitation."
+      },
+      "lab5-05": {
+        "human_correctness": "correct",
+        "review_notes": "Names both local models and their roles accurately."
+      },
+      "lab5-06": {
+        "human_correctness": "correct",
+        "review_notes": "Paraphrases the PDF upload and answer behavior, though wording is awkward."
+      },
+      "lab5-07": {
+        "human_correctness": "correct",
+        "review_notes": "Lists all four requested Group 1 comparison metrics."
+      },
+      "lab5-08": {
+        "human_correctness": "correct",
+        "review_notes": "Includes the checker, retry, unsupported answers, and abstention accuracy."
+      },
+      "lab5-09": {
+        "human_correctness": "partial",
+        "review_notes": "Lists the entity extraction and graph-building tasks but omits multi-hop evaluation."
+      },
+      "lab5-10": {
+        "human_correctness": "incorrect",
+        "review_notes": "Abstains although the retrieved evidence includes the report and evaluation requirements."
+      }
+    },
+    "sections": {
+      "lab5-01": {
+        "human_correctness": "partial",
+        "review_notes": "Identifies the improvement objective but not the specific fixed-size, dense retrieval, and top-k limitations."
+      },
+      "lab5-02": {
+        "human_correctness": "partial",
+        "review_notes": "Lists all three strategies but omits the long academic handbook investigation."
+      },
+      "lab5-03": {
+        "human_correctness": "incorrect",
+        "review_notes": "Abstains even though the expected deliverables are present in the retrieved evidence."
+      },
+      "lab5-04": {
+        "human_correctness": "partial",
+        "review_notes": "Gives a related comparison objective but misses the stated requirement to improve an existing limitation."
+      },
+      "lab5-05": {
+        "human_correctness": "correct",
+        "review_notes": "Names both models, though the role mapping is not explicit."
+      },
+      "lab5-06": {
+        "human_correctness": "correct",
+        "review_notes": "Captures reading PDFs, allowing uploads, and answering from them."
+      },
+      "lab5-07": {
+        "human_correctness": "correct",
+        "review_notes": "Lists the requested four Group 1 metrics."
+      },
+      "lab5-08": {
+        "human_correctness": "partial",
+        "review_notes": "Mentions checker and retry but omits the outcomes to investigate."
+      },
+      "lab5-09": {
+        "human_correctness": "correct",
+        "review_notes": "Covers entity extraction, knowledge graph construction, and multi-hop evaluation."
+      },
+      "lab5-10": {
+        "human_correctness": "partial",
+        "review_notes": "Includes methodology, findings, and limitations but omits the baseline/proposed comparison and supporting evidence."
+      }
+    },
+    "parent_child": {
+      "lab5-01": {
+        "human_correctness": "correct",
+        "review_notes": "Identifies all stated retrieval limitations."
+      },
+      "lab5-02": {
+        "human_correctness": "correct",
+        "review_notes": "Lists all three strategies and the handbook investigation."
+      },
+      "lab5-03": {
+        "human_correctness": "correct",
+        "review_notes": "Covers all seven deliverables."
+      },
+      "lab5-04": {
+        "human_correctness": "correct",
+        "review_notes": "Accurately states the project aim and improvement requirement."
+      },
+      "lab5-05": {
+        "human_correctness": "correct",
+        "review_notes": "Names both models accurately."
+      },
+      "lab5-06": {
+        "human_correctness": "correct",
+        "review_notes": "Captures PDF reading, user uploads, and answering from PDF content."
+      },
+      "lab5-07": {
+        "human_correctness": "correct",
+        "review_notes": "Lists all four requested Group 1 metrics."
+      },
+      "lab5-08": {
+        "human_correctness": "correct",
+        "review_notes": "Includes checker, retry, unsupported answers, and abstention accuracy."
+      },
+      "lab5-09": {
+        "human_correctness": "partial",
+        "review_notes": "Lists entity extraction and knowledge graph work but omits evaluating multi-hop questions."
+      },
+      "lab5-10": {
+        "human_correctness": "incorrect",
+        "review_notes": "Abstains although the retrieved evidence contains the report and evaluation requirements."
+      }
+    }
+  }
+}

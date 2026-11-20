@@ -1,0 +1,119 @@
+[
+  {
+    "id": "ugc-01",
+    "question": "How are places allocated among the three selection criteria for courses other than the listed Arts courses?",
+    "reference_answer": "Up to 40% of places are selected by All Island Merit based on Z-scores, up to 55% by district quota, and the remaining 5% for students from educationally disadvantaged districts.",
+    "relevant_pages": [
+      15,
+      16
+    ],
+    "required_facts": [
+      "40%",
+      "55%",
+      "5%",
+      "district quota"
+    ],
+    "source": "UGC_University_Admissions_Handbook_2025-2026_first50pages.pdf"
+  },
+  {
+    "id": "ugc-02",
+    "question": "Which three components are used to calculate the G.C.E. Advanced Level Z-score?",
+    "reference_answer": "The calculation uses the student's raw marks for the subject and year, the mean performance in that subject for that year, and the standard deviation for that subject for that year.",
+    "relevant_pages": [
+      17
+    ],
+    "required_facts": [
+      "raw marks",
+      "mean",
+      "standard deviation"
+    ],
+    "source": "UGC_University_Admissions_Handbook_2025-2026_first50pages.pdf"
+  },
+  {
+    "id": "ugc-03",
+    "question": "What factors affect the cut-off marks for a course at a university?",
+    "reference_answer": "Cut-off marks depend on candidates' performance in that year's Advanced Level examination, demand for the course and university, and the number of places available; the marks can vary from year to year.",
+    "relevant_pages": [
+      17
+    ],
+    "required_facts": [
+      "performance",
+      "demand",
+      "number of seats",
+      "vary from year to year"
+    ],
+    "source": "UGC_University_Admissions_Handbook_2025-2026_first50pages.pdf"
+  },
+  {
+    "id": "ugc-04",
+    "question": "If a candidate attended schools in more than one district during the three-year period, how is the admission district determined?",
+    "reference_answer": "The district where the candidate studied for the greatest number of days is used, provided the period in that district is at least one year. If no district meets the one-year requirement, the permanent-residence district is considered under the handbook's documentation rules.",
+    "relevant_pages": [
+      18
+    ],
+    "required_facts": [
+      "most number of days",
+      "at least one year",
+      "permanent place of residence"
+    ],
+    "source": "UGC_University_Admissions_Handbook_2025-2026_first50pages.pdf"
+  },
+  {
+    "id": "ugc-05",
+    "question": "What must a selected candidate do for university registration, and when is registration valid?",
+    "reference_answer": "The candidate must pay the Rs. 50 registration fee and complete online registration through the UGC website for the selected course by the given deadline. Payment alone is not a valid registration; the online registration must be completed.",
+    "relevant_pages": [
+      19
+    ],
+    "required_facts": [
+      "Rs. 50",
+      "online registration",
+      "deadline",
+      "payment alone"
+    ],
+    "source": "UGC_University_Admissions_Handbook_2025-2026_first50pages.pdf"
+  },
+  {
+    "id": "ugc-06",
+    "question": "Where should applicants apply for courses offered by IHRA and the Institute of Technology at the University of Moratuwa?",
+    "reference_answer": "They should apply to the respective institution when applications are invited; admission is handled by those institutions under UGC guidance.",
+    "relevant_pages": [
+      20
+    ],
+    "required_facts": [
+      "respective institution",
+      "applications are invited",
+      "UGC guidance"
+    ],
+    "source": "UGC_University_Admissions_Handbook_2025-2026_first50pages.pdf"
+  },
+  {
+    "id": "ugc-07",
+    "question": "How many Advanced Level examination attempts make a student ineligible to apply for internal state-university admission?",
+    "reference_answer": "A student who has sat the examination more than three times is ineligible. The attempts do not need to be consecutive.",
+    "relevant_pages": [
+      20
+    ],
+    "required_facts": [
+      "more than three",
+      "need not sit consecutively"
+    ],
+    "source": "UGC_University_Admissions_Handbook_2025-2026_first50pages.pdf"
+  },
+  {
+    "id": "ugc-08",
+    "question": "Which Arts courses are exceptions to All Island Merit selection and use the district quota system?",
+    "reference_answer": "Music, Dance, Drama and Theatre, Visual Arts, Visual and Technological Arts, and Art and Design use the district quota system.",
+    "relevant_pages": [
+      15
+    ],
+    "required_facts": [
+      "Music",
+      "Dance",
+      "Drama",
+      "Visual Arts",
+      "Art and Design"
+    ],
+    "source": "UGC_University_Admissions_Handbook_2025-2026_first50pages.pdf"
+  }
+]

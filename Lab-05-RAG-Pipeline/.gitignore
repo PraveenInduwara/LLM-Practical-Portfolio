@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+chroma_db/
+.streamlit/secrets.toml
+evaluation/results/*.tmp
+
+# Public handbook source and derived excerpt; obtain the original via the source link.
+data/source_documents/*.pdf
+data/evaluation_corpus/handbook_sample/*.pdf
+
+tmp/
