@@ -9,7 +9,7 @@ This portfolio brings together practical work exploring machine learning and lar
 - [Lab 03: Tiny Transformer](Lab-03-Tiny-Transformer/README.md)
 - [Lab 04: Fine-Tuning](Lab-04-Fine-Tune/README.md)
 - [Lab 05: RAG Pipeline](Lab-05-RAG-Pipeline/README.md)
-- [Lab 05: AI Agents](Lab-05-AI-Agents/README.md)
+- [Lab 06: AI Agents](Lab-06-AI-Agents/README.md)
 
 ## Final Reflection
 
