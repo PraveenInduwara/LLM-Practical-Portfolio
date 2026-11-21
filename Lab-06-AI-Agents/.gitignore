@@ -1,0 +1,14 @@
+.env
+credentials.json
+token.json
+data/agent_memory.sqlite3
+data/agent_memory.sqlite3-shm
+data/agent_memory.sqlite3-wal
+data/google_token.json
+data/generated/*
+!data/generated/.gitkeep
+data/chroma_db/
+__pycache__/
+*.py[cod]
+tests/tmp*/
+
