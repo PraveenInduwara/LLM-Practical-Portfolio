@@ -4,7 +4,9 @@ import tempfile
 import unittest
 import os
 import sys
+from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 from unittest.mock import Mock, patch
 
 from lab6_agent import tools as agent_tools
@@ -116,12 +118,16 @@ class GoogleApprovalTests(unittest.TestCase):
     def test_calendar_read_uses_today_colombo_window(self):
         calendar = GoogleCalendar()
         service = Mock()
+        today_at_ten = datetime.now(ZoneInfo("Asia/Colombo")).replace(
+            hour=10, minute=0, second=0, microsecond=0
+        ).isoformat()
         service.events.return_value.list.return_value.execute.return_value = {
-            "items": [{"summary": "Study", "start": {"dateTime": "2026-12-01T10:00:00+05:30"}}]
+            "items": [{"summary": "Study", "start": {"dateTime": today_at_ten}}]
         }
         calendar._service = lambda: service
         result = calendar.calendar_today()
         self.assertIn("Study", result)
+        self.assertIn(today_at_ten, result)
         query = service.events.return_value.list.call_args.kwargs
         self.assertTrue(query["timeMin"].endswith("+05:30"))
         self.assertTrue(query["timeMax"].endswith("+05:30"))
@@ -134,9 +140,11 @@ class GoogleApprovalTests(unittest.TestCase):
             "summary": "Study", "id": "test-event-id"
         }
         calendar._service = lambda: service
-        result = calendar.create_calendar_event(
-            "Study", "2026-12-01T10:00:00+05:30", "2026-12-01T10:30:00+05:30"
+        start = (datetime.now(ZoneInfo("Asia/Colombo")) + timedelta(days=1)).replace(
+            hour=10, minute=0, second=0, microsecond=0
         )
+        end = start + timedelta(minutes=30)
+        result = calendar.create_calendar_event("Study", start.isoformat(), end.isoformat())
         self.assertIn("test-event-id", result)
         body = service.events.return_value.insert.call_args.kwargs["body"]
         self.assertEqual(body["start"]["timeZone"], "Asia/Colombo")
