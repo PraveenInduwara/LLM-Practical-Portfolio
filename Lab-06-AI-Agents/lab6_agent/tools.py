@@ -15,7 +15,7 @@ from zoneinfo import ZoneInfo
 
 from langchain_core.tools import tool
 
-from .google_integrations import GoogleWorkspace
+from .google_integrations import GoogleCalendar
 from .memory import SQLiteMemory
 from .rag import Lab5KnowledgeBase
 
@@ -101,18 +101,37 @@ def search_files(directory: str, pattern: str, max_results: int = 50) -> str:
     return "\n".join(results) + suffix
 
 
-def create_text_file(filename: str, content: str, output_directory: str | Path) -> str:
-    """Create a .txt file in the Lab 6 generated-output folder, never an arbitrary path."""
+def create_text_file(filename: str, content: str, output_directory: str | Path,
+                     directory: str | Path | None = None) -> str:
+    """Create a .txt file in generated output or an explicitly allowed existing folder."""
     name = Path(filename).name
     if name != filename or name in {"", ".", ".."} or "/" in filename or "\\" in filename:
         return "File was not created: provide a simple filename without directory components."
     if Path(name).suffix.lower() != ".txt":
         return "File was not created: only .txt files are accepted."
-    target_root = Path(output_directory).resolve()
-    target_root.mkdir(parents=True, exist_ok=True)
+    if directory is None or not str(directory).strip():
+        target_root = Path(output_directory).resolve()
+        target_root.mkdir(parents=True, exist_ok=True)
+    else:
+        requested_root = Path(directory).expanduser()
+        if not requested_root.is_dir():
+            return f"File was not created: target directory does not exist: {requested_root}."
+        target_root = requested_root.resolve()
+        allowed_roots = [
+            Path(item.strip()).expanduser().resolve()
+            for item in os.getenv("LAB6_ALLOWED_WRITE_ROOTS", "").split(os.pathsep)
+            if item.strip()
+        ]
+        if not any(target_root == allowed or allowed in target_root.parents for allowed in allowed_roots):
+            return (
+                "File was not created: target directory is not in LAB6_ALLOWED_WRITE_ROOTS. "
+                "Add an existing, trusted folder there before retrying."
+            )
     target = (target_root / name).resolve()
     if target.parent != target_root:
-        return "File was not created: path escapes the generated-output folder."
+        return "File was not created: path escapes the allowed output folder."
+    if target.exists():
+        return f"File was not created: {target} already exists; existing files are not overwritten."
     target.write_text(content, encoding="utf-8", newline="\n")
     return f"Created {target} ({target.stat().st_size} bytes)."
 
@@ -187,7 +206,7 @@ def build_tools(memory: SQLiteMemory, session_id: str, rag: Lab5KnowledgeBase,
                 workspace: str | Path, confirm_google=None):
     workspace = Path(workspace).resolve()
     output_dir = workspace / "data" / "generated"
-    google = GoogleWorkspace(confirm=confirm_google)
+    google = GoogleCalendar(confirm=confirm_google)
 
     @tool
     def calculator(expression: str) -> str:
@@ -195,7 +214,8 @@ def build_tools(memory: SQLiteMemory, session_id: str, rag: Lab5KnowledgeBase,
         try:
             result = calculate(expression)
             if os.getenv("LAB6_SHOW_CALCULATOR", "1").strip().casefold() not in {"0", "false", "no", "off"}:
-                open_windows_calculator(expression)
+                display_result = open_windows_calculator(expression)
+                return f"{result} ({display_result})"
             return result
         except ValueError as exc:
             return f"Calculation error: {exc}"
@@ -216,9 +236,25 @@ def build_tools(memory: SQLiteMemory, session_id: str, rag: Lab5KnowledgeBase,
         return search_files(directory, pattern)
 
     @tool
-    def create_file(filename: str, content: str) -> str:
-        """Create a .txt file inside Lab 6's data/generated directory."""
-        return create_text_file(filename, content, output_dir)
+    def create_file(filename: str, content: str, directory: str = "") -> str:
+        """Create a .txt file in Lab 6 output or in a configured allowed directory."""
+        return create_text_file(filename, content, output_dir, directory or None)
+
+    @tool
+    def calendar_today() -> str:
+        """Read today's Google Calendar events in Asia/Colombo."""
+        try:
+            return google.calendar_today()
+        except Exception as exc:
+            return f"Google Calendar could not be read: {type(exc).__name__}: {exc}"
+
+    @tool
+    def create_calendar_event(summary: str, start: str, end: str, description: str = "") -> str:
+        """Create a Google Calendar event only after explicit interactive approval. Use ISO-8601 datetimes."""
+        try:
+            return google.create_calendar_event(summary, start, end, description)
+        except Exception as exc:
+            return f"Google Calendar event failed: {type(exc).__name__}: {exc}"
 
     @tool
     def system_info() -> str:
@@ -240,56 +276,7 @@ def build_tools(memory: SQLiteMemory, session_id: str, rag: Lab5KnowledgeBase,
         """Find relevant passages in configured university PDF documents using Lab 5's RAG pipeline."""
         return rag.search(query)
 
-    @tool
-    def calendar_today() -> str:
-        """Read today's Google Calendar events in Asia/Colombo."""
-        try:
-            return google.calendar_today()
-        except Exception as exc:
-            return f"Google Calendar could not be read: {type(exc).__name__}: {exc}"
-
-    @tool
-    def create_calendar_event(summary: str, start: str, end: str, description: str = "") -> str:
-        """Create a Google Calendar event only after a separate interactive approval. Use ISO-8601 datetimes."""
-        try:
-            return google.create_calendar_event(summary, start, end, description)
-        except Exception as exc:
-            return f"Google Calendar event failed: {type(exc).__name__}: {exc}"
-
-    @tool
-    def read_student_records(spreadsheet_id: str, range_name: str) -> str:
-        """Read rows from a Google Sheet; requires the user's spreadsheet ID and A1 range."""
-        try:
-            return google.read_sheet(spreadsheet_id, range_name)
-        except Exception as exc:
-            return f"Google Sheets read failed: {type(exc).__name__}: {exc}"
-
-    @tool
-    def update_student_records(spreadsheet_id: str, range_name: str, values_json: str) -> str:
-        """Update Google Sheet rows after interactive approval; values_json is a JSON array of arrays."""
-        try:
-            return google.update_sheet(spreadsheet_id, range_name, values_json)
-        except Exception as exc:
-            return f"Google Sheets update failed: {type(exc).__name__}: {exc}"
-
-    @tool
-    def create_google_document(title: str, content: str) -> str:
-        """Create a Google Doc with the supplied title and content after interactive approval."""
-        try:
-            return google.create_doc(title, content)
-        except Exception as exc:
-            return f"Google Docs creation failed: {type(exc).__name__}: {exc}"
-
-    @tool
-    def send_gmail(to: str, subject: str, body: str) -> str:
-        """Send a Gmail message only after interactive approval."""
-        try:
-            return google.send_gmail(to, subject, body)
-        except Exception as exc:
-            return f"Gmail send failed: {type(exc).__name__}: {exc}"
-
     return [calculator, date_time, notepad, file_search, create_file, system_info,
             remember_information, search_memory, rag_search, calendar_today,
-            create_calendar_event, read_student_records, update_student_records,
-            create_google_document, send_gmail]
+            create_calendar_event]
 

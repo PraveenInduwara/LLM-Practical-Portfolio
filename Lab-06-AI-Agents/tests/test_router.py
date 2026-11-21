@@ -42,9 +42,10 @@ class DirectToolRoutingTests(unittest.TestCase):
         self.assertEqual((self.workspace / "data" / "generated" / "audit.txt").read_text(), "Hello World")
 
     def test_worksheet_file_creation_wording_is_understood(self):
-        answer = self.agent.ask("Create a file called test.txt in D:\\MSC AI with Hello World")
+        with patch.dict(os.environ, {"LAB6_ALLOWED_WRITE_ROOTS": str(self.workspace)}):
+            answer = self.agent.ask(f"Create a file called test.txt in {self.workspace} with Hello World")
         self.assertIn("Created", answer)
-        self.assertEqual((self.workspace / "data" / "generated" / "test.txt").read_text(), "Hello World")
+        self.assertEqual((self.workspace / "test.txt").read_text(), "Hello World")
 
     def test_short_worksheet_file_creation_wording_is_understood(self):
         answer = self.agent.ask("Create test.txt with Hello World")

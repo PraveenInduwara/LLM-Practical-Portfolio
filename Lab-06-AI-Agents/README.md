@@ -1,8 +1,8 @@
-# Lab 6 — AI Agents
+# Lab 6 — AI Agents (Lab Sheet pages 1–5)
 
 ## Objective
 
-Build and evaluate a local AI agent that can call tools, retain useful information in memory, retrieve answers from course documents, and connect to workflow and Google services.
+Build a local Ollama agent that uses a calculator and practical tools, add SQLite memory and Lab 5 RAG, then connect tools for reading and creating Google Calendar events.
 
 ## Portfolio layout
 
@@ -12,40 +12,40 @@ Lab-06-AI-Agents/
 ├── agent.py
 ├── requirements.txt
 ├── .env.example
-├── lab6_agent/          # Agent tools, SQLite memory, RAG, and Google integrations
+├── lab6_agent/          # Calculator, local tools, SQLite memory, RAG, Calendar
 ├── notebooks/           # Guided demo notebook
-├── screenshots/         # Screenshots added after interactive runs
+├── screenshots/         # Evidence screenshots from interactive runs
 ├── data/
-│   ├── knowledge_base/  # Add approved, selectable-text university PDFs here
-│   └── generated/       # Local generated files; runtime data is ignored by Git
-└── tests/               # Automated checks for core tools and routing
+│   ├── knowledge_base/  # Selectable-text university/course PDFs for RAG
+│   └── generated/       # Default safe location for generated text files
+└── tests/               # Automated checks for tools and routing
 ```
 
-## Practical tasks
+## Tasks covered
 
-- Use `llama3.2:3b` through Ollama and a LangChain agent.
-- Add calculator, Colombo date/time, Notepad, file search/create, and system-information tools.
-- Add persistent SQLite memory and a memory-search tool.
-- Reuse the Lab 5 retrieval pipeline for document-grounded answers.
-- Provide Google Calendar, Sheets, Docs, and Gmail integrations, with confirmation before write/send actions.
-- Include an n8n workflow using a local Ollama model, memory, and Google Calendar tools.
-- Outline the final university assistant workflow combining RAG and the Google services.
+1. **Calculator agent:** use `llama3.2:3b` through Ollama and LangChain; arithmetic is evaluated safely and Windows Calculator display is attempted when enabled.
+2. **Multiple tools:** Asia/Colombo date and time, Notepad text entry, read-only file search, text-file creation, and OS/processor/memory information.
+3. **Memory:** persistent SQLite conversation/fact store and a memory-search tool.
+4. **RAG:** adapter to the Lab 5 PDF extraction, hierarchical indexing, and retrieval, with source/page labels.
+5. **Google Calendar:** read today's schedule and create an event only after explicit interactive approval.
 
 ## Run locally
 
-1. Install Ollama and download the model with `ollama pull llama3.2:3b`.
-2. Install Python dependencies with `python -m pip install -r requirements.txt`.
-3. Copy `.env.example` to `.env` and adjust settings if needed.
-4. Start Ollama, then run `python agent.py` from this folder.
-5. For RAG, add approved university/course PDFs to `data/knowledge_base/`. Answers are based on those local documents and include source labels.
-6. For Google tools, create an OAuth desktop client in Google Cloud, save it as `credentials.json` in this folder, and authorize the account when prompted. Credentials and tokens are excluded from Git.
+1. Install Ollama and download the model: `ollama pull llama3.2:3b`.
+2. Install dependencies: `python -m pip install -r requirements.txt`.
+3. Copy `.env.example` to `.env`; set allowed folders for file search/write if required.
+4. Start Ollama, then run `python agent.py` from this directory.
+5. Add selectable-text university/course PDFs to `data/knowledge_base/` for RAG. Responses cite retrieved passages as `[S#]` with source and page.
+6. For Calendar, create a Google Desktop OAuth client JSON, save as `credentials.json` here, then authorize when first prompted. OAuth tokens and credentials are ignored by Git.
 
-The guided notebook is [notebooks/lab06_ai_agents.ipynb](notebooks/lab06_ai_agents.ipynb). Automated checks can be run with `python -m unittest discover -s tests -v`.
+The guided notebook is [notebooks/lab06_ai_agents.ipynb](notebooks/lab06_ai_agents.ipynb). Automated checks: `python -m unittest discover -s tests -v`.
 
-## Progress and limits
+## Verified results and limitations
 
-The Python agent, local tools, SQLite memory, Lab 5 RAG adapter, and Google integration code are included. The automated suite passes (18 tests). A local smoke run returned `100` for `Calculate 25 × 4`, returned the current Asia/Colombo time, saved and recalled the demo name `Alex`, created a safe test file, and reported this machine's Windows/CPU/memory details. Searching the Lab 6 folder returned no PDFs, as expected. A real retrieval check against the supplied Lab Sheet 6 PDF successfully located the Part B tool description; that handout is only a retrieval test and is **not** an institutional university knowledge base.
+The automated suite passes **23 tests** covering arithmetic, safe file operations, date/time, SQLite memory, mocked Calculator/Notepad UI actions, RAG fallback behavior, and mocked Calendar API reads/creates and approval checks. The live local model check confirmed that `llama3.2:3b` called the calculator tool and returned `100` for `25 * 4`.
 
-Live Google Calendar/Sheets/Docs/Gmail operations require the user's OAuth setup and have not been verified against a Google account. Docker is not installed in the current environment, so the n8n workflow has not been run. Interactive Windows Calculator/Notepad actions have not been executed; add screenshots only after those interactive steps have actually been performed. The worksheet's example directory `D:\MSC AI` does not exist on this computer, so its requested PDF search and file-creation examples must be repeated on a machine that has that directory.
+A local smoke run on 2026-11-21 returned the Colombo timestamp, saved and recalled the demo name `Alex`, found a temporary sample PDF, created `test.txt` only in an allowlisted temporary folder, and returned OS/processor/memory information. The end-to-end RAG check used the existing Lab 5 course handout and answered: “The group task is to investigate, design, implement, and evaluate an advanced RAG architecture that improves at least one limitation of the existing university RAG system” with citation `[S1]`. A separate retrieval check located the Lab Sheet 6 Part B tools on page 3. These are course-handout checks, not evidence against an institution-specific handbook.
 
-The computer-shop `D:\MSC AI` paths in the worksheet are example paths from the lab handout. File creation is sandboxed to `data/generated/` so the agent cannot overwrite arbitrary files; file search can be restricted with `LAB6_ALLOWED_SEARCH_ROOTS` in `.env`.
+The worksheet's example folder `D:\MSC AI` is absent on this computer. Its exact PDF-search and file-create examples therefore cannot be completed here; file search reports the missing directory, and file creation requires the requested folder to exist and be listed in `LAB6_ALLOWED_WRITE_ROOTS`. Without a requested destination, new text files are safely written to `data/generated/`, and existing files are never overwritten.
+
+Google Calendar live access still requires your OAuth client and account authorization; the API behavior was tested with mocks only. Calculator and Notepad UI actions were tested with mocks, not a visible desktop run. The repository root `agent.py` provided as a reference was empty, so implementation was checked against Lab Sheet 6 pages 1–5 and the existing Lab 5 RAG module.
