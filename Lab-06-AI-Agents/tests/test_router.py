@@ -32,6 +32,17 @@ class DirectToolRoutingTests(unittest.TestCase):
     def test_date_request_uses_timezone_tool(self):
         self.assertIn("UTC+0530", self.agent.ask("What is today's date and time in Colombo?"))
 
+    def test_calendar_schedule_request_routes_to_calendar_not_date_time(self):
+        with patch.object(self.agent, "_invoke_tool", return_value="Today's events: Study at 10:00") as invoke:
+            answer = self.agent.ask("What events are on my calendar today?")
+        self.assertIn("Study at 10:00", answer)
+        invoke.assert_called_once_with("calendar_today")
+
+    def test_calendar_event_create_request_is_not_misrouted_to_date(self):
+        self.assertIsNone(self.agent._direct_answer(
+            "Create a Google Calendar event today called Lab review from 10:00 to 10:30."
+        ))
+
     def test_name_is_saved_and_recalled_from_sqlite(self):
         self.agent.ask("My name is Alex. Please remember that.")
         self.assertIn("Your name is Alex", self.agent.ask("What is my name? Search memory."))
