@@ -29,6 +29,18 @@ Lab-06-AI-Agents/
 4. **RAG:** adapter to the Lab 5 PDF extraction, hierarchical indexing, and retrieval, with source/page labels.
 5. **Google Calendar:** read today's schedule and create an event only after explicit interactive approval.
 
+## Page-by-page verification status
+
+| Worksheet page | Objective | Evidence and status |
+| --- | --- | --- |
+| 1 | Ollama calculator agent | **Partially verified:** the real `llama3.2:3b` model called the calculator tool and returned `100` for `25 * 4`. The visible Windows Calculator UI path has automated mock coverage, but was not verified in a persistent desktop window. |
+| 2 | Date/time, Notepad, file search/create, computer specifications | **Partially verified:** date/time, PDF filename search, allowlisted text-file creation, and system details returned real local results in a temporary workspace. Notepad typing has mock coverage only. The exact `D:\MSC AI` examples cannot run here because this machine has no `D:` drive; the notebook contains them for a machine where that folder exists. |
+| 3 | SQLite memory and recall of Alex | **Verified locally:** the agent saved `Alex` and answered “What is my name?” with “Your name is Alex.” |
+| 4 | Calculator, memory search, and Lab 5 RAG | **Verified against the available Lab 5 course handout:** a group-task question returned a relevant answer with source label `[S1]`. This is not a check against an institution-specific handbook. |
+| 5 | Google Calendar today view and event creation | **Implemented; live access unverified:** mocked API checks cover today's Asia/Colombo time window, event creation, and approval. A live run needs your Google Cloud project, enabled Calendar API, Desktop OAuth client JSON, and account authorization. |
+
+The Calendar integration uses OAuth because it acts on a user's calendar. Google documents the required OAuth scopes for [listing events](https://developers.google.com/workspace/calendar/api/v3/reference/events/list) and [creating events](https://developers.google.com/workspace/calendar/api/v3/reference/events/insert). Setup follows Google's [Python Calendar quickstart](https://developers.google.com/workspace/calendar/api/quickstart/python): enable the Calendar API, configure the OAuth consent screen, create a Desktop app OAuth client, and save its downloaded JSON as `credentials.json` in this folder. The first run opens Google's authorization flow and stores a local token, which is gitignored. A plain API key is not used by this user-calendar read/write flow.
+
 ## Run locally
 
 1. Install Ollama and download the model: `ollama pull llama3.2:3b`.
