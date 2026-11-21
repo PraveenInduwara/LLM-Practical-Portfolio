@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f8f8f1">
+    <meta name="description" content="Keep a little pantry, find ideas, and share food with friends in ShareShelf.">
+    <title>ShareShelf | Your food, with a next step</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-topbar">
+        <a class="brand" href="#home-screen" data-nav="home" aria-label="ShareShelf home"><span class="brand-mark" aria-hidden="true">s</span><span>share<span class="brand-light">shelf</span></span></a>
+        <span class="avatar-button" aria-label="Your profile">A</span>
+      </header>
+
+      <main id="main" class="app-content">
+        <section id="home-screen" class="screen active-screen" data-screen="home" aria-labelledby="home-title">
+          <div class="welcome">
+            <h1 id="home-title">Good food deserves<br><em>another chance.</em></h1>
+            <p>Keep track of what you have, find a quick idea, or share a little extra with friends.</p>
+          </div>
+          <p id="summary-strip" class="summary-strip"><strong id="soon-count">0</strong> items to use soon <span aria-hidden="true">·</span> <strong id="hero-count">0</strong> in your pantry</p>
+          <div class="home-actions">
+            <button class="button button-primary" type="button" data-action="open-food"><span aria-hidden="true">＋</span> Add food</button>
+            <button class="button button-soft" type="button" data-go="chats"><span aria-hidden="true">↗</span> Chat with friends</button>
+          </div>
+          <section class="home-section" aria-labelledby="home-soon-title">
+            <div class="section-title-row"><h2 id="home-soon-title">Use soon</h2><button class="text-link" type="button" data-go="pantry">See pantry <span aria-hidden="true">→</span></button></div>
+            <div id="home-soon-list" class="mini-food-list"></div>
+          </section>
+          <section class="home-section home-chat-section" aria-labelledby="home-chat-title">
+            <div class="section-title-row"><h2 id="home-chat-title">Your kitchen chats</h2><button class="text-link" type="button" data-go="chats">All chats <span aria-hidden="true">→</span></button></div>
+            <div id="home-chat-list" class="mini-chat-list"></div>
+          </section>
+          <p class="local-note"><span aria-hidden="true">✳</span> Your demo pantry and chats stay on this device.</p>
+        </section>
+
+        <section id="pantry-screen" class="screen" data-screen="pantry" aria-labelledby="pantry-title" hidden>
+          <div class="screen-heading">
+            <div><h1 id="pantry-title">My pantry</h1><p>Find it, use it, or pass it on.</p></div>
+            <button id="open-form" class="icon-add" type="button" aria-label="Add food">＋</button>
+          </div>
+          <div class="pantry-summary"><span><strong id="all-count">0</strong> foods</span><span class="summary-dot" aria-hidden="true"></span><span><strong id="filter-soon-count">0</strong> use soon</span></div>
+          <div class="pantry-filters">
+            <div class="filter-row" role="group" aria-label="Filter pantry by timing">
+              <button class="filter-pill active" type="button" data-timing="all" aria-pressed="true">Everything</button>
+              <button class="filter-pill" type="button" data-timing="soon" aria-pressed="false">Use soon</button>
+            </div>
+            <div class="category-scroller">
+              <div id="category-filters" class="category-filters" role="group" aria-label="Filter by food category"></div>
+            </div>
+          </div>
+          <p class="category-hint">Use soon shows items with reminder dates due today or in the next 2 days.</p>
+          <div id="food-list" class="food-list" aria-live="polite"></div>
+          <div id="empty-state" class="empty-state" hidden><span class="empty-mark" aria-hidden="true">＋</span><strong id="empty-title">Your pantry has room to grow.</strong><p id="empty-copy">Add a food item and we’ll help you remember it.</p><button id="empty-add" class="button button-primary" type="button">Add a food <span aria-hidden="true">→</span></button></div>
+          <aside class="tip-card"><span class="tip-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.8 13.9 9l6.1 2-6.1 2-1.9 6.2L10 13l-6-2 6-2 2-6.2Z"></path><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"></path></svg></span><div><h2>One ingredient. One easy idea.</h2><p id="leftover-prompt">Pick an item from your pantry for a simple leftover prompt.</p></div></aside>
+        </section>
+
+        <section id="share-screen" class="screen" data-screen="share" aria-labelledby="exchange-title" hidden>
+          <div class="screen-heading">
+            <div><h1 id="exchange-title">Share board <span class="demo-badge">DEMO</span></h1><p>See how sharing a little extra could work with friends.</p></div>
+            <button id="share-open" class="icon-add" type="button" aria-label="Offer food to share">＋</button>
+          </div>
+          <div class="demo-explainer"><span aria-hidden="true">ⓘ</span><p>Sample listings only. Previewing interest won’t contact anyone or arrange a pickup.</p></div>
+          <div id="share-list" class="share-list"></div>
+          <div class="share-cta"><div class="share-illustration" aria-hidden="true">🥕</div><h2>Have a little extra?</h2><p>Add a sample offer to see how it appears on the board.</p><button class="button button-primary" type="button" data-action="open-share">＋ Share food</button></div>
+        </section>
+
+        <section id="chats-screen" class="screen chat-screen" data-screen="chats" aria-labelledby="chats-title" hidden>
+          <div id="room-list-view">
+            <div class="screen-heading chat-heading"><div><h1 id="chats-title">Kitchen chats</h1><p>Talk food with your people.</p></div><button id="new-room-open" class="icon-add" type="button" aria-label="Create a chat room">＋</button></div>
+            <div class="chat-sample-note"><span class="sample-dot" aria-hidden="true"></span> Sample conversations · saved on this device</div>
+            <div id="room-list" class="room-list"></div>
+            <button class="button button-primary new-room-button" type="button" data-action="new-room">＋ Create a room</button>
+          </div>
+          <div id="chat-detail-view" hidden>
+            <div class="chat-detail-header"><button id="chat-back" class="back-button" type="button" aria-label="Back to rooms">←</button><div class="room-avatar" aria-hidden="true">✳</div><div class="room-heading-copy"><h2 id="active-room-title">Room</h2><p id="active-room-members">0 friends</p></div><button id="add-member-open" class="add-member-button" type="button" aria-expanded="false" aria-controls="member-form-wrap">＋ <span>Add</span></button></div>
+            <div id="member-form-wrap" class="member-form-wrap" hidden>
+              <form id="member-form" class="inline-form"><label for="member-name">Add a friend to this room</label><div class="inline-form-row"><input id="member-name" name="member" required maxlength="32" placeholder="Friend’s name"><button class="button button-primary" type="submit">Add</button></div></form>
+            </div>
+            <div id="member-pills" class="member-pills" aria-label="Room members"></div>
+            <div class="messages-day"><span>TODAY</span></div>
+            <div id="message-list" class="message-list" aria-live="polite"></div>
+            <form id="message-form" class="message-form"><label class="visually-hidden" for="message-text">Write a message</label><input id="message-text" name="message" required maxlength="500" autocomplete="off" placeholder="Message your friends…"><button class="send-button" type="submit" aria-label="Send message">↑</button></form>
+          </div>
+        </section>
+      </main>
+
+      <nav class="bottom-nav" aria-label="Main navigation">
+        <button class="nav-item active" type="button" data-nav="home" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3.5 10 8.5-7 8.5 7"></path><path d="M5.5 9v11h13V9M9.5 20v-6h5v6"></path></svg></span><span>Home</span></button>
+        <button class="nav-item" type="button" data-nav="pantry"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4.5h16v15H4zM4 10h16M4 15h16"></path><path d="M8 7.2h.1M8 12.5h.1M8 17.5h.1"></path></svg></span><span>Pantry</span></button>
+        <button class="nav-item" type="button" data-nav="share"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-8-4.7-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6.3-8 11-8 11Z"></path><path d="M7.5 12h3l1.5-2.5 1.5 5 1.2-2.5h2.3"></path></svg></span><span>Share</span></button>
+        <button class="nav-item" type="button" data-nav="chats"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5h16v11H11l-5 3v-3H4z"></path><path d="M8 10h8M8 13h5"></path></svg></span><span>Chats</span><span id="chat-count" class="nav-count" hidden>0</span></button>
+      </nav>
+
+      <dialog id="food-dialog" aria-labelledby="dialog-title"><form id="food-form" method="dialog"><div class="dialog-head"><div><h2 id="dialog-title">Add to your pantry</h2></div><button class="close-button" type="button" data-close="food-dialog" aria-label="Close">×</button></div><label for="food-name">Food item</label><input id="food-name" name="name" required maxlength="50" placeholder="e.g. spinach"><label for="food-category">Category</label><select id="food-category" name="category"><option value="auto">Choose automatically</option><option value="produce">Fruit &amp; vegetables</option><option value="dairy">Dairy &amp; eggs</option><option value="bakery">Bakery</option><option value="pantry">Pantry staples</option><option value="leftovers">Leftovers</option><option value="other">Other</option></select><div class="form-row"><div><label for="food-quantity">Quantity or note</label><input id="food-quantity" name="quantity" maxlength="40" placeholder="1 bag"></div><div><label for="food-date">Reminder date</label><input id="food-date" name="date" type="date"></div></div><p class="form-hint">A reminder date helps you plan. It doesn’t tell you whether food is safe to eat.</p><div class="dialog-actions"><button class="button button-soft" type="button" data-close="food-dialog">Cancel</button><button class="button button-primary" type="submit">Add food</button></div></form></dialog>
+
+      <dialog id="share-dialog" aria-labelledby="share-dialog-title"><form id="share-form" method="dialog"><div class="dialog-head"><div><h2 id="share-dialog-title">Offer extra food</h2></div><button class="close-button" type="button" data-close="share-dialog" aria-label="Close">×</button></div><label for="share-name">What would you like to share?</label><input id="share-name" name="name" required maxlength="50" placeholder="e.g. extra tomatoes"><label for="share-note">Pickup note</label><input id="share-note" name="note" maxlength="70" placeholder="e.g. collect from the common kitchen"><p class="form-hint">This is a local preview. It won’t be sent to other students.</p><div class="dialog-actions"><button class="button button-soft" type="button" data-close="share-dialog">Cancel</button><button class="button button-primary" type="submit">Preview offer</button></div></form></dialog>
+
+      <dialog id="room-dialog" aria-labelledby="room-dialog-title"><form id="room-form" method="dialog"><div class="dialog-head"><div><h2 id="room-dialog-title">Create a chat room</h2></div><button class="close-button" type="button" data-close="room-dialog" aria-label="Close">×</button></div><label for="room-name">Room name</label><input id="room-name" name="name" required maxlength="40" placeholder="e.g. Flat 3 kitchen"><label for="room-friends">Add friends</label><input id="room-friends" name="friends" required maxlength="180" placeholder="Maya, Nimal"><p class="form-hint">Add names separated by commas. This local demo doesn’t send invitations.</p><div class="dialog-actions"><button class="button button-soft" type="button" data-close="room-dialog">Cancel</button><button class="button button-primary" type="submit">Create room</button></div></form></dialog>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </div>
+  </body>
+</html>
