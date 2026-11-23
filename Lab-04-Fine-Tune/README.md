@@ -18,6 +18,13 @@ The supplied run record reports completion-only evaluation loss **2.9040**, mean
 
 The comparison files show **mixed answer quality**. The fine-tuned model gives a more appropriate answer to the deleted-file recovery question, but also produces incorrect or unsafe advice on some held-out questions (including cleaning desktop dust and shutting down nightly), and its unseen no-picture troubleshooting answer is not relevant. The current results therefore document a completed fine-tuning exercise, not a reliable support assistant. Review each answer before using it as guidance.
 
+## Observations
+
+- The loss values improved over three epochs, but this only indicates better next-token prediction on the training/evaluation format; it does not guarantee correct support answers.
+- Comparing the base and adapted models on the same held-out and unseen questions exposed mixed behavior: one answer improved, while other answers were irrelevant, incorrect, or unsafe.
+- The 28 training examples and eight held-out examples are too small to support broad conclusions about computer-support performance.
+- Quantized adapter training made the experiment possible on the available GPU, but the base-model weights are still required to load the adapter and reproduce inference.
+
 ## Results and saved adapter
 
 - [Run record](results/fine_tuning_run_record.json)
@@ -38,3 +45,10 @@ After the evaluation/export cell completes, run the final **Ask the fine-tuned m
 3. Review the held-out/unseen comparisons and run the chatbot cell. The current run artifacts from the supplied Colab ZIP are stored under results/. If you rerun Colab, download the new results ZIP and replace these checked-in artifacts after reviewing them.
 
 The small hand-written dataset is for demonstrating the fine-tuning workflow and is too small to establish general support quality.
+
+## Learning Outcomes
+
+- Configured parameter-efficient fine-tuning with LoRA/QLoRA, 4-bit NF4 quantization, and supervised fine-tuning tools on a GPU runtime.
+- Separated training examples from held-out questions and compared the base and adapted models on matching held-out and unseen prompts.
+- Interpreted loss, token accuracy, and perplexity as language-model metrics rather than direct measures of answer correctness.
+- Learned to inspect individual responses for relevance and safety and to preserve the base-model name, adapter configuration, and run artifacts needed for reuse.

@@ -71,6 +71,21 @@ Run checks from this folder:
 python -m unittest discover -s tests -v
 ```
 
+## Observations
+
+- The agent completed calculator, date/time, file, memory, RAG, and Calendar tasks, with tool-specific checks and 25 automated tests recorded in the verification file.
+- The allowlist correctly blocked a write to an unapproved folder. A repeat succeeded after that folder was explicitly added to the trusted write roots; existing files were not overwritten.
+- Calendar creation required the user to review and approve the proposed event. This permission boundary is essential because a tool call can change a real calendar.
+- The RAG check used the Lab 5 course handout, not an NSBM handbook. Calendar and UI checks establish a working prototype, not a student-ready institutional service.
+- The `screenshots/` directory currently has no captured images. Task-by-task text verification and automated results are available, but visual screenshots remain a useful addition.
+
+## Learning Outcomes
+
+- Connected a local language model to registered tools and implemented routing for calculator, date/time, file, memory, retrieval, and calendar requests.
+- Used SQLite for persistent memory and adapted the Lab 5 retrieval workflow to return source/page evidence.
+- Applied least-privilege file access, write allowlists, OAuth authorization, and explicit confirmation before Calendar writes.
+- Learned to distinguish unit-test coverage and a successful demonstration from evidence that an agent is reliable with real institutional documents or diverse users.
+
 ## Run locally
 
 1. Install Ollama and download the model: `ollama pull llama3.2:3b`.

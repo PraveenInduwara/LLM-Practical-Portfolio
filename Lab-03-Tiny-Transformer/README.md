@@ -20,6 +20,20 @@ The supplied Colab run record reports 20,000 sampled stories, 5,000 main-model s
 
 The saved checkpoint reloads successfully, but the generated samples are **not consistently coherent**. The main sample contains many malformed words and grammar errors, and the smaller model sample is largely unreadable. The reloaded-checkpoint sample has a recognizable opening but still has significant language errors. Therefore, these results complete the requested experiment and provide evidence, but they do not establish that the model reliably writes sensible stories. See [generated_stories.md](results/generated_stories.md), [settings_comparison.csv](results/settings_comparison.csv), and the loss plots in this folder.
 
+## Observations
+
+- Training and validation loss decreased, and the larger configuration scored better on the recorded validation split than the smaller configuration.
+- The lower loss and character perplexity did not translate into consistently readable stories. Generated samples still contained malformed words and grammar errors.
+- The validation set and generated samples measure different aspects of performance; a prediction metric alone is not enough to judge whether a story is useful.
+- Building and running the model required careful handling of sequence shifts, causal masking, context length, and checkpoint vocabulary so that saved weights could be loaded with the matching character mapping.
+
+## Learning Outcomes
+
+- Implemented a character-level causal Transformer with token and positional embeddings, masked self-attention, feed-forward layers, residual connections, and layer normalization.
+- Prepared a story-level train/validation split and used cross-entropy loss and character perplexity to compare model configurations.
+- Saved and reloaded a checkpoint together with the vocabulary and inspected generated outputs as a separate qualitative evaluation.
+- Learned that successful training and a lower validation score do not establish coherent generation; output quality must be reviewed directly against the intended task.
+
 ## Story chatbot
 
 After running all notebook cells, run the final **Generate stories from a chat prompt** cell. It opens a Gradio interface where a user enters a story opening and the trained Transformer continues it. The cell prints a temporary share link; anyone who has the link can access the chatbot while the Colab runtime is running. Because this is a small character-level model trained from scratch, the chatbot may produce incoherent text and should be treated as an experiment rather than a reliable story writer.
